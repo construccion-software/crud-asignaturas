@@ -8,12 +8,13 @@ import {
   TableHead,
   TableHeadCell,
   TableRow,
-  Modal,
-  Label,
-  TextInput,
 } from "flowbite-react";
 import { Subject } from "@/models/Subjects";
 import { useState } from "react";
+
+import CreateModal from "@/components/CreateModal";
+import EditModal from "@/components/EditModal";
+import DeleteModal from "@/components/DeleteModal";
 
 export default function Home() {
   const [subjects, setSubjects] = useState<Subject[]>([
@@ -49,224 +50,9 @@ export default function Home() {
     },
   ]);
 
-  const addSubject = (subject: Subject) => setSubjects([...subjects, subject]);
-  const removeSubject = (id: number) => {
-    setSubjects(subjects.filter((subject) => subject.id !== id));
-  };
-
   const [openCreateModal, setOpenCreateModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
-  const [editingSubject, setEditingSubject] = useState<Subject | null>(null);
-
-  const CreateModal = () => {
-    const [newSubject, setNewSubject] = useState<Subject>({
-      id: 1,
-      code: "",
-      name: "",
-      description: "",
-      credits: 0,
-      created_at: new Date(),
-      updated_at: new Date(),
-      teacher_id: 0,
-    });
-
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setNewSubject({
-        ...newSubject,
-        [event.target.name]: event.target.value,
-      });
-    };
-
-    const handleSubmit = (event: React.FormEvent) => {
-      event.preventDefault();
-      addSubject(newSubject);
-      setOpenCreateModal(false);
-    };
-
-    return (
-      <Modal
-        show={openCreateModal}
-        size="md"
-        onClose={() => setOpenCreateModal(false)}
-        popup
-      >
-        <Modal.Header>
-          <h2 className="text-lg font-normal">Create Subject</h2>
-        </Modal.Header>
-        <Modal.Body>
-          <form onSubmit={handleSubmit}>
-            <Label>
-              Code:
-              <TextInput
-                type="text"
-                name="code"
-                value={newSubject.code}
-                onChange={handleInputChange}
-              />
-            </Label>
-            <Label>
-              Name:
-              <TextInput
-                type="text"
-                name="name"
-                value={newSubject.name}
-                onChange={handleInputChange}
-              />
-            </Label>
-            <Label>
-              Description:
-              <TextInput
-                type="text"
-                name="description"
-                value={newSubject.description}
-                onChange={handleInputChange}
-              />
-            </Label>
-            <Label>
-              Credits:
-              <TextInput
-                type="number"
-                name="credits"
-                value={newSubject.credits}
-                onChange={handleInputChange}
-              />
-            </Label>
-            <Label>
-              Teacher ID:
-              <TextInput
-                type="number"
-                name="teacher_id"
-                value={newSubject.teacher_id}
-                onChange={handleInputChange}
-              />
-            </Label>
-            <div className="flex justify-center gap-4 mt-4">
-              <Button type="submit" color="success">
-                Create
-              </Button>
-            </div>
-          </form>
-        </Modal.Body>
-      </Modal>
-    );
-  };
-
-  const EditModal = () => {
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setEditingSubject({
-        ...editingSubject,
-        [event.target.name]: event.target.value,
-      });
-    };
-
-    const handleSubmit = (event: React.FormEvent) => {
-      event.preventDefault();
-      // Aquí debes implementar la lógica para actualizar el `Subject`
-      setOpenEditModal(false);
-    };
-
-    return (
-      <Modal
-        show={openEditModal}
-        size="md"
-        onClose={() => setOpenEditModal(false)}
-        popup
-      >
-        <Modal.Header>
-          <h2 className="text-lg font-normal">Edit Subject</h2>
-        </Modal.Header>
-        <Modal.Body>
-          <form onSubmit={handleSubmit}>
-            <Label>
-              Code:
-              <TextInput
-                type="text"
-                name="code"
-                value={editingSubject?.code}
-                onChange={handleInputChange}
-              />
-            </Label>
-            <Label>
-              Name:
-              <TextInput
-                type="text"
-                name="name"
-                value={editingSubject?.name}
-                onChange={handleInputChange}
-              />
-            </Label>
-            <Label>
-              Description:
-              <TextInput
-                type="text"
-                name="description"
-                value={editingSubject?.description}
-                onChange={handleInputChange}
-              />
-            </Label>
-            <Label>
-              Credits:
-              <TextInput
-                type="number"
-                name="credits"
-                value={editingSubject?.credits}
-                onChange={handleInputChange}
-              />
-            </Label>
-            <Label>
-              Teacher ID:
-              <TextInput
-                type="number"
-                name="teacher_id"
-                value={editingSubject?.teacher_id}
-                onChange={handleInputChange}
-              />
-            </Label>
-            <div className="flex justify-center gap-4 mt-4">
-              <Button type="submit" color="success">
-                Save changes
-              </Button>
-            </div>
-          </form>
-        </Modal.Body>
-      </Modal>
-    );
-  };
-
-  const DeleteModal = (subject: Subject) => {
-    return (
-      <Modal
-        show={openDeleteModal}
-        size="md"
-        onClose={() => setOpenDeleteModal(false)}
-        popup
-      >
-        <Modal.Header />
-        <Modal.Body>
-          <div className="text-center">
-            <h3 className="mb-5 text-lg font-normal">
-              Are you sure you want to delete this subject?
-            </h3>
-            <div className="flex justify-center gap-4">
-              <Button
-                color="failure"
-                onClick={() => {
-                  setOpenDeleteModal(false);
-                  removeSubject(editingSubject?.id as number);
-                }}
-              >
-                Yes, I'm sure
-              </Button>
-              <Button color="gray" onClick={() => setOpenDeleteModal(false)}>
-                No, cancel
-              </Button>
-            </div>
-          </div>
-        </Modal.Body>
-      </Modal>
-    );
-  };
 
   return (
     <main className="bg-slate-950 w-full h-screen flex flex-col justify-center items-center text-white overflow-x-auto">
@@ -331,15 +117,24 @@ export default function Home() {
                       <path d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z" />
                     </svg>
                   </Button>
-                  <DeleteModal />
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </div>
-      <CreateModal />
-      <EditModal />
+      <CreateModal
+        isOpen={openCreateModal}
+        onClose={() => setOpenCreateModal(false)}
+      />
+      <EditModal
+        isOpen={openEditModal}
+        onClose={() => setOpenEditModal(false)}
+      />
+      <DeleteModal
+        isOpen={openDeleteModal}
+        onClose={() => setOpenDeleteModal(false)}
+      />
     </main>
   );
 }
