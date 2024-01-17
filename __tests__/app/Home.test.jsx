@@ -16,4 +16,9 @@ describe('Page', () => {
     expect(heading).toBeInTheDocument()
   });
 
+  it('aknowledges CreateModal', () => {
+    render(<Home />)
+    
+    const elem = screen.getByText('Create Subject')
+  });
 })
