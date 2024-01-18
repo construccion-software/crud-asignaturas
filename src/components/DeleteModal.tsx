@@ -34,7 +34,7 @@ export default function DeleteModal({
           </h3>
           <div className="flex justify-center gap-4">
             <Button color="failure" onClick={onDelete}>
-              Yes, I'm sure
+              Yes, delete
             </Button>
             <Button color="gray" onClick={onClose}>
               No, cancel

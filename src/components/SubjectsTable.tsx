@@ -21,7 +21,7 @@ export default function SubjectsTable({ subjects }: { subjects: Subject[] }) {
 
   useEffect(() => {
     setSubjectsList(subjects);
-  }, [subjectsList]);
+  }, [subjects]);
 
   const [openCreateModal, setOpenCreateModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);

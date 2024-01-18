@@ -11,8 +11,6 @@ export default function CreateModal({
   isOpen: boolean;
   onClose: () => void;
 }) {
-  if (!isOpen) return null;
-
   const [newSubject, setNewSubject] = useState<Subject>({
     code: "",
     name: "",
@@ -21,6 +19,8 @@ export default function CreateModal({
     created_at: new Date(),
     teacher: "",
   });
+
+  if (!isOpen) return;
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewSubject({
