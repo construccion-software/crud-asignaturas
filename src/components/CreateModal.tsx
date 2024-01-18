@@ -32,7 +32,7 @@ export default function CreateModal({
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    fetch(`${process.env.URL}/api`, {
+    fetch(`http://localhost:3000/api`, {
       method: "POST",
       body: JSON.stringify(newSubject),
       headers: {
