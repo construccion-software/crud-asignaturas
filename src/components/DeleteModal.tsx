@@ -14,7 +14,7 @@ export default function DeleteModal({
   if (!codeToDelete) return null;
 
   const onDelete = async () => {
-    const res = await fetch("http://localhost:3000/api", {
+    const res = await fetch(`${process.env.URL}/api`, {
       method: "DELETE",
       body: JSON.stringify({ code: codeToDelete }),
     });
