@@ -7,3 +7,4 @@ Este repositorio contiene una aplicación simple que proporciona operaciones CRU
 1. Clona el repositorio: `git clone https://github.com/tu-usuario/crud-asignaturas.git`
 2. Instala las dependencias: `npm install`
 3. Ejecuta la aplicación: `npm run dev`
+4. Listo!
