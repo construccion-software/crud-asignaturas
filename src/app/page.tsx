@@ -2,7 +2,7 @@ import { Subject } from "@/models/Subjects";
 import SubjectsTable from "@/components/SubjectsTable";
 
 export async function getSubjects() {
-  const res = await fetch(`${process.env.URL}/api`);
+  const res = await fetch(`https://test-vercel-seven-teal.vercel.app/subject`);
   if (!res.ok) throw new Error("Failed to fetch data");
   return res.json();
 }
