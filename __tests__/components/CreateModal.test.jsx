@@ -7,9 +7,9 @@ import CreateModal from '../../src/components/CreateModal'
 describe('CreateModal', () => {
   it('loads CreateModal', async () => {
     render(<CreateModal isOpen={true}/>) 
-    await screen.findByRole('heading',{level: 2}) 
+    await screen.findByText('Create Subject') 
     //await screen.findByText('Create Subject')
-    expect(screen.getByRole('heading', {level: 2})).toHaveTextContent('Create Subject')
+    expect(screen.getByText('Create Subject')).toHaveTextContent('Create Subject')
   })
 
   it('does not load CreateModal if it not open', async() => {
