@@ -10,6 +10,19 @@ export default function DeleteModal({
   onClose: () => void;
 }) {
   if (!isOpen) return null;
+  const codeToDelete = localStorage.getItem("codeToDelete");
+  if (!codeToDelete) return null;
+
+  const onDelete = async () => {
+    const res = await fetch(`https://test-vercel-seven-teal.vercel.app/subject`, {
+      method: "DELETE",
+      body: JSON.stringify({ code: codeToDelete }),
+    });
+    const data = await res.json();
+    console.log(data);
+    localStorage.removeItem("codeToDelete");
+    onClose();
+  };
 
   return (
     <Modal show={isOpen} size="md" onClose={onClose} popup>
@@ -20,13 +33,8 @@ export default function DeleteModal({
             Are you sure you want to delete this subject?
           </h3>
           <div className="flex justify-center gap-4">
-            <Button
-              color="failure"
-              onClick={() => {
-                onClose();
-              }}
-            >
-              Yes, I'm sure
+            <Button color="failure" onClick={onDelete}>
+              Yes, delete
             </Button>
             <Button color="gray" onClick={onClose}>
               No, cancel

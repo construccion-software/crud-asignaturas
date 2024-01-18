@@ -11,18 +11,16 @@ export default function CreateModal({
   isOpen: boolean;
   onClose: () => void;
 }) {
-  if (!isOpen) return null;
-
   const [newSubject, setNewSubject] = useState<Subject>({
-    id: 1,
     code: "",
     name: "",
     description: "",
     credits: 0,
     created_at: new Date(),
-    updated_at: new Date(),
-    teacher_id: 0,
+    teacher: "",
   });
+
+  if (!isOpen) return;
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewSubject({
@@ -33,12 +31,25 @@ export default function CreateModal({
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+
+    fetch(`https://test-vercel-seven-teal.vercel.app/subject`, {
+      method: "POST",
+      body: JSON.stringify(newSubject),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        onClose();
+      })
+      .catch(console.error);
   };
 
   return (
     <Modal show={isOpen} size="md" onClose={onClose} popup>
       <Modal.Header>
-        <h2 className="text-lg font-normal">Create Subject</h2>
+        <p className="text-lg font-normal">Create Subject</p>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={handleSubmit}>
@@ -79,24 +90,17 @@ export default function CreateModal({
             />
           </Label>
           <Label>
-            Teacher ID:
+            Teacher:
             <TextInput
-              type="number"
-              name="teacher_id"
-              value={newSubject.teacher_id}
+              type="text"
+              name="teacher"
+              value={newSubject.teacher}
               onChange={handleInputChange}
             />
           </Label>
           <div className="flex justify-center gap-4 mt-4">
-            <Button
-              type="submit"
-              color="success"
-              onClick={() => {
-                // TODO: Save changes
-                onClose();
-              }}
-            >
-              Create
+            <Button type="submit" color="success">
+              Save
             </Button>
           </div>
         </form>

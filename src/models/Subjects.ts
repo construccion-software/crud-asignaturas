@@ -5,6 +5,5 @@ export type Subject = {
   description?: string;
   credits?: number;
   created_at?: Date;
-  updated_at?: Date;
-  teacher_id?: number;
+  teacher?: string;
 };
