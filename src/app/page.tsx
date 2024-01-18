@@ -1,8 +1,7 @@
 import { Subject } from "@/models/Subjects";
-
 import SubjectsTable from "@/components/SubjectsTable";
 
-async function getSubjects() {
+export async function getSubjects() {
   const res = await fetch("http://localhost:3000/api");
   if (!res.ok) throw new Error("Failed to fetch data");
   return res.json();
@@ -16,7 +15,7 @@ export default async function Home() {
       <div className="flex justify-center items-center">
         <h1 className="font-bold text-3xl px-3">CRUD Subjects</h1>
       </div>
-      <hr className="border-1 border-white w-96 my-6" />
+      <hr className="border-1 border-white w-96 my-3" />
       <div className="container">
         <SubjectsTable subjects={subjects} />
       </div>

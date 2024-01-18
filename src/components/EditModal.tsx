@@ -30,7 +30,7 @@ export default function EditModal({
   return (
     <Modal show={isOpen} size="md" onClose={onClose} popup>
       <Modal.Header>
-        <h2 className="text-lg font-normal">Edit Subject</h2>
+        <p className="text-lg font-normal">Edit Subject</p>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={handleSubmit}>
@@ -73,9 +73,9 @@ export default function EditModal({
           <Label>
             Teacher ID:
             <TextInput
-              type="number"
-              name="teacher_id"
-              value={editingSubject?.teacher_id}
+              type="text"
+              name="teacher"
+              value={editingSubject?.teacher}
               onChange={handleInputChange}
             />
           </Label>
