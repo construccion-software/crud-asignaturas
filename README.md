@@ -1,4 +1,4 @@
-# CRUD de Asignaturas
+# CRUD de Asignaturas (v0.1)
 
 Este repositorio contiene una aplicación simple que proporciona operaciones CRUD (Crear, Leer, Actualizar, Eliminar) para gestionar asignaturas académicas. La aplicación, principalmente, está construida con NextJS.
 
