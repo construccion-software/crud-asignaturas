@@ -32,7 +32,7 @@ export default function CreateModal({
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    fetch(`${process.env.API_URL}/api`, {
+    fetch(`https://test-vercel-seven-teal.vercel.app/subject`, {
       method: "POST",
       body: JSON.stringify(newSubject),
       headers: {

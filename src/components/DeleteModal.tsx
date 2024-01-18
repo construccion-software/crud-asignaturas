@@ -14,7 +14,7 @@ export default function DeleteModal({
   if (!codeToDelete) return null;
 
   const onDelete = async () => {
-    const res = await fetch(`${process.env.API_URL}/api`, {
+    const res = await fetch(`https://test-vercel-seven-teal.vercel.app/subject`, {
       method: "DELETE",
       body: JSON.stringify({ code: codeToDelete }),
     });
